@@ -13,6 +13,13 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+  padding: 0;
+  margin: 0;
+}
+html {
+  box-sizing: border-box;
+}
 a {
   font-weight: 500;
   color: #646cff;
@@ -23,11 +30,10 @@ a:hover {
 }
 
 body {
-  margin: 0;
+  height: 100vh;
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  flex-direction: column;
+  justify-content: center;
 }
 
 h1 {
@@ -36,18 +42,16 @@ h1 {
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  height: max-content;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: inherit;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #e0a22d;
 }
 button:focus,
 button:focus-visible {
@@ -65,4 +69,29 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  align-items: center;
+}
+.card {
+  background-color: rgb(93, 101, 175);
+  border-radius: 10px;
+  padding: 2rem;
+
+  text-align: center;
+}
+.card img {
+  object-fit: contain;
+  width: 10rem;
+  height: 10rem;
+}
+
+.card p {
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
 }
