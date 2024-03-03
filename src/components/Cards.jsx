@@ -1,12 +1,10 @@
 /* eslint-disable react/prop-types */
-export default function Cards({ pokemon }) {
+export default function Cards({ handleSelect, pokemon }) {
   if (!pokemon) {
-    console.log('Invalid Pokemon Data:', pokemon);
     return null;
   }
-  console.log(pokemon);
   return (
-    <button>
+    <button onClick={() => handleSelect(pokemon.id)}>
       <div className="card">
         <img
           src={pokemon.img}

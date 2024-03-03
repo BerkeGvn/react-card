@@ -1,13 +1,13 @@
-const RANDOM_NUM = 30
 
-function getRandomNumber() {
-  return Math.floor(Math.random() * RANDOM_NUM) + 1;
+
+function getRandomNumber(num) {
+  return Math.floor(Math.random() * num) + 1;
 }
 
 
-async function fetchPokemon() {
+async function fetchPokemon(num) {
   try {
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon/' + getRandomNumber());
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon/' + getRandomNumber(num));
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
