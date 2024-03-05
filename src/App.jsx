@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import CardContainer from './components/CardContainer';
 import Cards from './components/Cards';
-import fetchPokemon from './components/utils/fetchPokemon';
-import shuffleArray from './components/utils/shuffle';
+import fetchPokemon from './utils/fetchPokemon';
+import shuffleArray from './utils/shuffle';
+import GameOverModal from './components/GameOverModal';
+import Restart from './components/Restart';
+import Scoreboard from './components/scoreboard';
 
 const RNDM_LIMIT = 30;
 const POKEMON_LIMIT = 30;
@@ -10,6 +13,7 @@ function App() {
   const [pokemons, setPokemon] = useState([]);
   const [selectedPokemons, setSelectedPokemons] = useState([]);
   const [gameOver, setGameOver] = useState(false);
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
     let isMounted = true; // Flag to track if the component is still mounted
@@ -36,7 +40,6 @@ function App() {
       }
     }
     fetchData();
-
     // Cleanup function to set isMounted to false when the component unmounts
     return () => {
       isMounted = false;
@@ -57,10 +60,18 @@ function App() {
     }
   }
 
+  function handleRestart() {
+    setSelectedPokemons([]);
+    setGameOver(false);
+    // shuffling the pokemon array for the next round
+    setPokemon((prevList) => shuffleArray(prevList));
+  }
+
   const firstFivePokemons = pokemons.slice(0, 5);
 
   return (
     <>
+      <Scoreboard></Scoreboard>
       <CardContainer>
         {pokemons.length <= 0 ? (
           <h1>LOADING...</h1>
@@ -74,7 +85,9 @@ function App() {
           ))
         )}
       </CardContainer>
-      {gameOver ? <h1>GAME OVER</h1> : null}
+      <GameOverModal isGameOver={gameOver}>
+        <Restart onRestart={handleRestart}></Restart>
+      </GameOverModal>
     </>
   );
 }
