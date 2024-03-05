@@ -140,6 +140,16 @@ button:focus-visible {
   background-color: #cc9329;
 }
 
+.scoreboard {
+  font-size: 1.8rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  margin-bottom: 2rem;
+}
+
 @keyframes slide-down-fade-in {
   from {
     opacity: 0;

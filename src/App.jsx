@@ -5,7 +5,7 @@ import fetchPokemon from './utils/fetchPokemon';
 import shuffleArray from './utils/shuffle';
 import GameOverModal from './components/GameOverModal';
 import Restart from './components/Restart';
-import Scoreboard from './components/scoreboard';
+import Scoreboard from './components/Scoreboard';
 
 const RNDM_LIMIT = 30;
 const POKEMON_LIMIT = 30;
@@ -14,6 +14,7 @@ function App() {
   const [selectedPokemons, setSelectedPokemons] = useState([]);
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
 
   useEffect(() => {
     let isMounted = true; // Flag to track if the component is still mounted
@@ -47,23 +48,31 @@ function App() {
   }, []);
 
   function onSelectCard(id) {
-    // shuffling the pokemon array for the next round
-    setPokemon((prevList) => shuffleArray(prevList));
-
-    if (selectedPokemons <= 0) {
-      return setSelectedPokemons([id]);
-    }
     if (selectedPokemons.some((pokemonId) => pokemonId === id)) {
-      setGameOver(true);
+      return setGameOver(true);
+    }
+    if (selectedPokemons <= 0) {
+      setSelectedPokemons([id]);
     } else {
       setSelectedPokemons((prevIds) => [...prevIds, id]);
     }
+    setScore((prevScore) => {
+      const newScore = prevScore + 1;
+      if (newScore > highScore) {
+        setHighScore(newScore);
+      }
+
+      return newScore;
+    });
+
+    // shuffling the pokemon array for the next round
+    setPokemon((prevList) => shuffleArray(prevList));
   }
 
   function handleRestart() {
     setSelectedPokemons([]);
     setGameOver(false);
-    // shuffling the pokemon array for the next round
+    setScore(0);
     setPokemon((prevList) => shuffleArray(prevList));
   }
 
@@ -71,7 +80,10 @@ function App() {
 
   return (
     <>
-      <Scoreboard></Scoreboard>
+      <Scoreboard
+        score={score}
+        highScore={highScore}
+      ></Scoreboard>
       <CardContainer>
         {pokemons.length <= 0 ? (
           <h1>LOADING...</h1>
@@ -86,7 +98,11 @@ function App() {
         )}
       </CardContainer>
       <GameOverModal isGameOver={gameOver}>
-        <Restart onRestart={handleRestart}></Restart>
+        <Restart
+          onRestart={handleRestart}
+          score={score}
+          highScore={highScore}
+        ></Restart>
       </GameOverModal>
     </>
   );
