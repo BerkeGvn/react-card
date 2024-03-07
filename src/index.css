@@ -150,6 +150,10 @@ button:focus-visible {
   margin-bottom: 2rem;
 }
 
+.header {
+  text-align: center;
+}
+
 @keyframes slide-down-fade-in {
   from {
     opacity: 0;

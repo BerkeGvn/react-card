@@ -80,6 +80,7 @@ function App() {
 
   return (
     <>
+      <h1 className="header">POKEMONS</h1>
       <Scoreboard
         score={score}
         highScore={highScore}
