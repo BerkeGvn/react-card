@@ -87,7 +87,7 @@ function App() {
       ></Scoreboard>
       <CardContainer>
         {pokemons.length <= 0 ? (
-          <h1>LOADING...</h1>
+          <h1>LOADING CARDS...</h1>
         ) : (
           firstFivePokemons.map((pokemon, i) => (
             <Cards
